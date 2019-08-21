@@ -64,9 +64,10 @@ steps:
     TargetFolder: '$(Build.ArtifactStagingDirectory)\Docker'
 
 - task: CmdLine@2
+  displayName: Build and save docker image
   inputs:
     script: |
-        docker build src/. -t plex-win:$(Build.BuildId)
+        docker build . -t plex-win:$(Build.BuildId)
         docker save plex-win:$(Build.BuildId) -o "$(Build.ArtifactStagingDirectory)\plex-win-$(Build.BuildId).tar"
     
 - task: PublishBuildArtifacts@1
