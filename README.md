@@ -1,4 +1,4 @@
-# docker-plex-win
+# Plex in a Windows container
 Run [Plex](https://plex.tv/) on a Windows container host.
 Compared to the [Linux image](https://github.com/plexinc/pms-docker/blob/master/README.md), 
 this gives you the ability to easily integrate with the [Windows Storage Spaces](https://docs.microsoft.com/en-us/windows-server/storage/storage-spaces/overview)
@@ -11,7 +11,7 @@ and easily includes SMB shares in your library (and even [DFS share](https://doc
 ### Network
 In order to select the streaming quality, Plex is analyzing the network to determine if your player devices are close to the server or not.
 The easiest solution is to put the Plex container directly on your LAN. To do this on Windows, you have to use the `transparent`
-network interface:
+network interface.
 
 Usually an `transparent` network is already configured in docker for Windows. To determine its name, on you host, run the command:
 
@@ -49,7 +49,8 @@ C:\>exit
 ```
 
 For the remote access, you have to [forward the 32400/TCP](https://support.plex.tv/articles/200931138-troubleshooting-remote-access/)
-to your Plex instance. For this we recommand to fix the MAC address of your container using `--mac-address d0:c8:32:12:23:56`
+to your Plex instance. For this we recommand to fix the MAC address of your container using `--mac-address d0:c8:32:12:23:56`,
+and then, on your router, setup a DHCP reservation and the port mapping.
 
 ### Volumes
 * `C:\Plex`: Directory for the configuration of your plex instance
@@ -63,7 +64,7 @@ docker run -d -v C:\Docker\Plex:C:\Plex --network "Intel(R) Gigabit CT Desktop A
 ```
 
 ### Docker compose
-Suggested docker compose file (for a network camera recording)
+Suggested docker compose file
 ```
 version: '3.4'
 services:
@@ -95,5 +96,5 @@ and [here](https://artisticcheese.wordpress.com/2017/09/09/enabling-integrated-w
 ## Crawler
 A crawler is running every day to check if a new release of Plex is avaible for Windows and automatically build a new docker image for it. 
 
-Here are the status of this crawler: [crawler](https://healthchecks.io/badge/5d6ba759-a8f6-471e-994e-0498930dd48c/GALn9f76/crawler.svg "crawler")
+Here are the status of this crawler: ![crawler](https://healthchecks.io/badge/5d6ba759-a8f6-471e-994e-0498930dd48c/GALn9f76/crawler.svg "crawler")
 
