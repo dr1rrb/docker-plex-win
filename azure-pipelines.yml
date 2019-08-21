@@ -65,9 +65,9 @@ steps:
 
 - task: CmdLine@2
   inputs:
-  script: |
-      docker build src/. -t plex-win:$(Build.BuildId)
-      docker save plex-win:$(Build.BuildId) -o "$(Build.ArtifactStagingDirectory)\plex-win-$(Build.BuildId).tar"
+    script: |
+        docker build src/. -t plex-win:$(Build.BuildId)
+        docker save plex-win:$(Build.BuildId) -o "$(Build.ArtifactStagingDirectory)\plex-win-$(Build.BuildId).tar"
     
 - task: PublishBuildArtifacts@1
   displayName: Publish docker artifacts
