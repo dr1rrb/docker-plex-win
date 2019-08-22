@@ -1,0 +1,77 @@
+trigger:
+- master
+
+variables:
+  - group: plex
+  - name: BuildConfiguration
+    value: Release
+
+pool:
+  vmImage: 'windows-2019'
+
+steps:
+- task: PowerShell@2
+  displayName: Get config
+  inputs:
+    filePath: 'azure-pipelines.get-config.ps1'
+    failOnStderr: true
+
+## Crawler ######################################################################
+- task: DotNetCoreCLI@2
+  displayName: Build crawler
+  inputs:
+    command: 'pack'
+    projects: 'Crawler\PlexCrawler.sln'
+    versioningScheme: 'off'
+
+- task: CopyFiles@2
+  displayName: Copy crawler to artifacts
+  inputs:
+    Contents: 'Crawler\PlexCrawler\bin\Release\**\publish\**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\Crawler'
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish crawler artifacts
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\Crawler'
+    ArtifactName: 'Crawler'
+    publishLocation: 'Container'
+
+
+## Docker ######################################################################
+- task: DownloadFile@1
+  displayName: Download Plex installer
+  inputs:
+    FileUrl: '$(plex.url)'
+    DestinationFolder: '$(System.DefaultWorkingDirectory)\PlexSetup'
+    requireAuthentication: false
+
+- task: RegexReplace@3
+  displayName: Generate Dockerfile for the given version
+  inputs:
+    InputSearchPattern: 'Dockerfile'
+    FindRegex: '\{plex\.installer\}'
+    ReplaceRegex: '$(plex.installer)'
+    UseUTF8: true
+
+- task: CopyFiles@2
+  displayName: Copy Dockerfile and Plex installer to artifacts
+  inputs:
+    Contents: |
+      config.txt
+      Dockerfile
+      PlexSetup\
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\Docker'
+
+- task: Docker@2
+  inputs:
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
+    tags: dev.$(Build.BuildId)
+    
+- task: PublishBuildArtifacts@1
+  displayName: Publish docker artifacts
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\Docker'
+    ArtifactName: 'Docker'
+    publishLocation: 'Container'
