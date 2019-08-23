@@ -11,7 +11,7 @@ RUN {plex.installer} /quiet
 RUN reg import Config.reg
 
 # Cleanup
-RUN del /F /Q Setup.exe
+RUN del /F /Q {plex.installer}
 RUN del /F /Q Config.reg
 
 # Expose images possible configuration

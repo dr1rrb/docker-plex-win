@@ -63,17 +63,15 @@ steps:
       PlexSetup\
     TargetFolder: '$(Build.ArtifactStagingDirectory)\Docker'
 
-- task: Docker@2
-  inputs:
-    containerRegistry: 'GitHub docker packages - dr1rrb'
-    repository: 'dr1rrb/docker-plex-win/plex-win'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
-    tags: dev.$(Build.BuildId)
-    
 - task: PublishBuildArtifacts@1
   displayName: Publish docker artifacts
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)\Docker'
     ArtifactName: 'Docker'
     publishLocation: 'Container'
+
+- task: Docker@2
+  inputs:
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
+    tags: dev.$(Build.BuildId)
