@@ -60,7 +60,7 @@ steps:
     Contents: |
       config.txt
       Dockerfile
-      PlexSetup\
+      PlexSetup\**
     TargetFolder: '$(Build.ArtifactStagingDirectory)\Docker'
 
 - task: PublishBuildArtifacts@1
