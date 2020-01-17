@@ -3,15 +3,15 @@ FROM mcr.microsoft.com/windows:1809
 # Copy/download install files to container
 COPY PlexSetup C:\\PlexSetup
 WORKDIR C:\\PlexSetup
-# Installer is downloaded as artefact of the build process, so the docker build is reproductible
-# ADD https://downloads.plex.tv/plex-media-server-new/1.15.3.876-ad6e39743/windows/PlexMediaServer-1.15.3.876-ad6e39743-x86.exe Setup.exe
+# Installer is pushed on this repo, so the docker build is reproductible, if needed you can uncomment this line to get it from the officiel server
+# ADD https://downloads.plex.tv/plex-media-server-new/1.18.4.2171-ac2afe5f8/windows/PlexMediaServer-1.18.4.2171-ac2afe5f8-x86.exe PlexMediaServer-1.18.4.2171-ac2afe5f8-x86.exe
 
 # Install Plex
-RUN {plex.installer} /quiet
+RUN PlexMediaServer-1.18.4.2171-ac2afe5f8-x86.exe /quiet
 RUN reg import Config.reg
 
 # Cleanup
-RUN del /F /Q {plex.installer}
+RUN del /F /Q PlexMediaServer-1.18.4.2171-ac2afe5f8-x86.exe
 RUN del /F /Q Config.reg
 
 # Expose images possible configuration
