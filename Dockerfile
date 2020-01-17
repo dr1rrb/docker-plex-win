@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows:1909-amd64
+FROM mcr.microsoft.com/windows:1903-amd64
 
 # Copy/download install files to container
 COPY PlexSetup C:\\PlexSetup
