@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows:1803
+FROM microsoft/windows:1803
 
 # Copy/download install files to container
 COPY PlexSetup C:\\PlexSetup
