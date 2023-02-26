@@ -25,6 +25,7 @@ steps:
     versioningScheme: 'off'
     publishWebProjects: false
     zipAfterPublish: false
+    arguments: '-p:CONFIGURATION=Release'
 
 - task: CopyFiles@2
   displayName: Copy crawler to artifacts
