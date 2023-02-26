@@ -20,7 +20,7 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: Build crawler
   inputs:
-    command: 'pack'
+    command: 'publish'
     projects: 'Crawler\PlexCrawler.sln'
     versioningScheme: 'off'
 
