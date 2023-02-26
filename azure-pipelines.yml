@@ -23,6 +23,8 @@ steps:
     command: 'publish'
     projects: 'Crawler\PlexCrawler.sln'
     versioningScheme: 'off'
+    publishWebProjects: false
+    zipAfterPublish: false
 
 - task: CopyFiles@2
   displayName: Copy crawler to artifacts
