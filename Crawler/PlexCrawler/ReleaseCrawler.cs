@@ -17,7 +17,7 @@ namespace Crawler
 	public static class ReleaseCrawler
 	{
 		[FunctionName("ScheduledCrawl")]
-		public static async void RunScheduledCrawl(
+		public static async Task RunScheduledCrawl(
 			[TimerTrigger("0 0 3 * * *")] TimerInfo myTimer,
 			ILogger log,
 			CancellationToken ct)
