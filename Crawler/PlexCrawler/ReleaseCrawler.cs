@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Crawler.Client.AzureDevOps;
 using Crawler.Client.HealthChecks;
-using Crawler.Client.VideoLan;
+using Crawler.Client.Plex;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -61,7 +61,7 @@ namespace Crawler
 
 			var status = "starting";
 			using (var hc = new HealthchecksApi(config, log, "PLEX_CRAWLER"))
-			using (var videoLan = new VideoLanApi())
+			using (var videoLan = new PlexApi())
 			using (var azure = new AzureDevOpsApi(config["AZURE_AUTH"]))
 			{
 				try
