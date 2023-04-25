@@ -60,9 +60,9 @@ namespace Crawler
 				.Build();
 
 			var status = "starting";
-			using (var hc = new HealthchecksApi(config, log, "crawler"))
+			using (var hc = new HealthchecksApi(config, log, "PLEX_CRAWLER"))
 			using (var videoLan = new VideoLanApi())
-			using (var azure = new AzureDevOpsApi(config["azure-auth"]))
+			using (var azure = new AzureDevOpsApi(config["AZURE_AUTH"]))
 			{
 				try
 				{

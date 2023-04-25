@@ -40,13 +40,13 @@ namespace Crawler.Client.HealthChecks
 		{
 			try
 			{
-				identifier = identifier ?? _defaultIdentifier;
+				identifier ??= _defaultIdentifier;
 				if (identifier == null)
 				{
 					return;
 				}
 
-				var check = _config["hc-" + identifier];
+				var check = _config["HC_" + identifier.ToUpperInvariant()];
 				if (check.IsNullOrWhiteSpace())
 				{
 					return;
