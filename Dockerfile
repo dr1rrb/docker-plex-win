@@ -7,8 +7,8 @@ WORKDIR C:\\PlexSetup
 # ADD https://downloads.plex.tv/plex-media-server-new/1.15.3.876-ad6e39743/windows/PlexMediaServer-1.15.3.876-ad6e39743-x86.exe Setup.exe
 
 # Install Plex
-RUN {plex.installer} /quiet
 RUN reg import Config.reg
+RUN {plex.installer} /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
 
 # Cleanup
 RUN del /F /Q {plex.installer}

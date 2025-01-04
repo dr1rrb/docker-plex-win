@@ -18,4 +18,4 @@ echo You can take ownership of a newly created server by navigating to one of th
 
 echo Starting Plex
 start "Registry sync" "C:\PlexSetup\DockerRegistrySync\DockerRegistrySync.exe" "C:\Plex\PlexConfig.json" "HKEY_CURRENT_USER\Software\Plex, Inc.\Plex Media Server"
-"C:\Program Files (x86)\Plex\Plex Media Server\Plex Media Server.exe"
+"C:\Program Files\Plex\Plex Media Server\Plex Media Server.exe"
